@@ -2,6 +2,7 @@
 require_once "../config/connection.php";
 require_once "../config/config.php";
 $db = conectar("teleconsulta");
+session_start();
 if(isset($_POST['btn-registro']))
 {
 	$username = strip_tags($_POST["username"]);
@@ -10,6 +11,7 @@ if(isset($_POST['btn-registro']))
 	$dni = strip_tags($_POST["dni"]);
 	$obrasocial = strip_tags($_POST["obrasocial"]);
 	$errorMsg = array();
+	$successMsg = array();
 	if(empty($username))
 	{
 		array_push($errorMsg,"Por favor, ingrese un usuario");
@@ -36,23 +38,15 @@ if(isset($_POST['btn-registro']))
 		$select_stmt = $db->prepare("SELECT * FROM usuarios WHERE username = :uname OR email = :uemail");
 		$select_stmt->execute(array(':uname'=>$username, ':uemail'=>$email));
 		$row =  $select_stmt->fetch(PDO::FETCH_ASSOC);
-	}
-	catch(PDOException $e)
-	{
-		echo $e->getMessage();
-	}
-
-	if($row["username"] == $username)
-	{
-		array_push($errorMsg,"Error, usuario ya existe.");
-	}
-	if($row["email"] == $email)
-	{
-		array_push($errorMsg,"Error, correo electrónico ya existe.");
-	}
-	if(!empty($errorMsg))
-	{
-		try
+		if($row["username"] == $username)
+		{
+			array_push($errorMsg,"Error, usuario ya existe.");
+		}
+		if($row["email"] == $email)
+		{
+			array_push($errorMsg,"Error, correo electrónico ya existe.");
+		}
+		if(empty($errorMsg))
 		{
 			//registrar
 			$newpassword = password_hash($password, PASSWORD_DEFAULT);
@@ -60,21 +54,26 @@ if(isset($_POST['btn-registro']))
 
 			if($insert_stmt->execute(array(':uname'=>$username, ':uemail'=>$email, ':upass'=>$newpassword, ':udni'=>$dni, ':uobrasocial'=>$obrasocial )))
 			{
-				$_SESSION["successMsg"] = "Registro completado exitosamente. Por favor, inicie sesión con sus datos.";
+				array_push($successMsg,"Registro completado exitosamente. Por favor, inicie sesión con sus datos.");
+				
+				$_SESSION["successMsg"] = $successMsg;
+				//print_r($_SESSION["successMsg"]);
 				header("location: ".$url."views/usuario/index.php");
 			}
 		}
-		catch(PDOException $e)
-		{
-			echo $e->getMessage();
-		}		
+		else
+		{		
+			//redireccionar el error
+			$_SESSION["errorMsg"] = $errorMsg;
+			//print_r($_SESSION["errorMsg"]);
+			header("location: ".$url."views/usuario/index.php");
+		}
 	}
-	else
-	{		
-		//redireccionar el error
-		$_SESSION["errorMsg"] = $errorMsg;
-		header("location: ".$url."views/usuario/index.php");
+	catch (PDOException $e)
+	{
+		echo $e->getMessage();
 	}
+	
 }
 function pass_verificada($password, $errorMsg)
 {

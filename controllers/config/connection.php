@@ -4,7 +4,7 @@ function conectar($target)
 {
 	$db_host = 'localhost';
 	$db_user = 'root';
-	$db_password = '19422581';
+	$db_password = '';
 	if($target == 'teleconsulta')
 		$db_name = 'teleconsulta';
 	else

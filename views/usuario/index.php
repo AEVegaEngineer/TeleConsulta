@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html dir="ltr">
 
@@ -42,6 +45,30 @@
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-light margin-login">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
+                    <?php
+                    if(isset($_SESSION["successMsg"]) && !empty($_SESSION["successMsg"]))
+                    {
+                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><ul>';
+                        foreach ($_SESSION["successMsg"] as $key => $value) {
+                            echo '<li>';
+                            echo $value;
+                            echo '</li>';
+                        }
+                        echo '</ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+                        
+                    }
+                    if(isset($_SESSION['errorMsg']) && !empty($_SESSION["errorMsg"]))
+                    {
+                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><ul>';
+                        foreach ($_SESSION["errorMsg"] as $key => $value) {
+                            echo '<li>';
+                            echo $value;
+                            echo '</li>';
+                        }
+                        echo '</ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+                        
+                    }
+                    ?>
                     <div class="text-center p-t-10 p-b-10">
                         <h1  class="font-weight-bold" style="color:white;">Iniciar Sesión - TeleConsulta</h1>
                     </div>
@@ -59,7 +86,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required="" id="password" name="password">
+                                    <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required="" id="log_password" name="log_password" minlength="6">
                                 </div>
                             </div>
                         </div>
@@ -141,13 +168,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required id="password" name="password">
+                                    <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required id="password" name="password" minlength="6">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-info text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder=" Confirme Contraseña" aria-label="Password" aria-describedby="basic-addon1" required id="confirm" name="confirm">
+                                    <input type="password" class="form-control form-control-lg" placeholder=" Confirme Contraseña" aria-label="Password" aria-describedby="basic-addon1" required id="confirm" name="confirm" minlength="6">
                                 </div>
                                 <!-- DNI -->
                                 <div class="input-group mb-3">
@@ -185,21 +212,6 @@
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right Sidebar -->
-        <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- All Required js -->

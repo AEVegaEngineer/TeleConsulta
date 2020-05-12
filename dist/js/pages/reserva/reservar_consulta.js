@@ -24,6 +24,10 @@ jQuery(function($){
 //$.datepicker.setDefaults({ changeMonth: true, changeYear: true, dateFormat: 'dd/mm/yy'});
 
 $(document).ready(function(){
+	// Inicializa los tooltips
+	$(function () {
+	  	$('[data-toggle="tooltip"]').tooltip()
+	});
 	/*
 	$( function() {
 	    $( "#tabs" ).tabs();
@@ -82,7 +86,67 @@ $(document).ready(function(){
 		}
 		
 	});
+	if(window.matchMedia("(max-width: 767px)").matches){
+		// EL viewport es menor de 768 pixeles de ancho. Esto es un dispositivo móvil.
+
+
+    } else{
+    	// EL viewport es mayor o igual a 768 pixeles de ancho. Esto es una tablet o pc.
+    	/***************************ANIMACIONES DE VENTANA****************************/
+		var cssBegin = {'max-width' : calcularWidth(8)+"%", 'width' : calcularWidth(8)+"%", 'flex' : calcularWidth(8)+"%"}; 
+	
+		var cssObj = {'max-width' : calcularWidth(2)+"%", 'width' : calcularWidth(2)+"%", 'flex' : calcularWidth(2)+"%"};
+
+		$("#lbl-agendar").css(cssBegin); 
+		$("#lbl-pago").css(cssObj); 
+		$("#lbl-ingreso").css(cssObj); 
+		$("#lbl-ingresar").css(cssObj); 
+		$("#tab-pago").hide();
+		$("#tab-ingreso").hide();
+
+		$('#btn-agendar').click(function(){
+
+			$( "#lbl-agendar" ).animate(cssObj, 1000, function() {// Animation complete.
+			});
+			$( "#lbl-pago" ).animate(cssBegin, 1000, function() {// Animation complete.
+			});
+			$("#tab-agendar").slideToggle();
+	        $("#tab-pago").slideToggle();
+			/*
+			$( "#lbl-agendar" ).animate({			
+			    opacity: 0.25,
+			    left: "+=50",
+			    height: "toggle",
+			    width: calcularWidth(2)+"%"
+			}, 1000, function() {
+			    // Animation complete.
+			});
+			*/
+		});
+		$('#btn-pago').click(function(){
+			$( "#lbl-pago" ).animate(cssObj, 1000, function() {// Animation complete.
+			});
+			$( "#lbl-ingreso" ).animate(cssBegin, 1000, function() {// Animation complete.
+			});
+			$("#tab-pago").slideToggle();
+	        $("#tab-ingreso").slideToggle();
+		});
+		$('#btn-back-agendar').click(function(){
+			$( "#lbl-ingreso" ).animate(cssObj, 1000, function() {// Animation complete.
+			});
+			$( "#lbl-agendar" ).animate(cssBegin, 1000, function() {// Animation complete.
+			});
+			$("#tab-ingreso").slideToggle();
+	        $("#tab-agendar").slideToggle();
+		});
+    }
+	
 });
+function calcularWidth(colwidth)
+{
+	var width = colwidth * 100 / 12;
+	return width;
+}
 
 
 

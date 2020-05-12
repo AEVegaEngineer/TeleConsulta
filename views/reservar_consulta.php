@@ -1,3 +1,8 @@
+<?php
+session_start();
+include_once "../controllers/config/checkAuth.php";
+//include_once "../controllers/config/mercadoPagoPay.php";
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -45,46 +50,46 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="page-breadcrumb">
+        <div class="page-breadcrumb m-2">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Sistema de Teleconsultas</h4>
-                    <!--
-                    <div class="ml-auto text-right">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    -->
+                    <h4 class="page-title">Sistema de Teleconsultas</h4>                    
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
         <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <div class="row m-5 text-center" id="subtitulo-dispose">
-                <h5>Agendá tu consulta ahora, seguí los siguientes pasos!</h5>
-            </div>
             <div class="row">
-
-                <!-- Column -->
-                <div class="col-md-4 col-lg-4" id="tab-agendar">
+                <div class="col-12 col-md-8" id="lbl-agendar">
                     <div class="card card-hover">
                         <div class="box bg-cyan text-center">
                             <h1 class="font-light text-white"><i class="mdi mdi-medical-bag"></i></h1>
                             <h6 class="text-white">Seleccioná un Médico y una Fecha Disponible para tu Consulta</h6>
                         </div>
                     </div>
+                                        
+                </div>
+                <!-- Column -->
+                <div class="col-12 col-md-2" id="lbl-pago">
+                    <div class="card card-hover">
+                        <div class="box bg-warning text-center">
+                            <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
+                            <h6 class="text-white">Realizá tu pago</h6>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Column -->
+                <div class="col-12 col-md-2" id="lbl-ingreso">
+                    <div class="card card-hover">
+                        <div class="box bg-success text-center">
+                            <h1 class="font-light text-white"><i class="mdi mdi-camera"></i></h1>
+                            <h6 class="text-white">Ingresá a la TeleConsulta!</h6>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row" id="tab-agendar">
+                <div class="col-12 offset-md-3 col-md-6">
                     <label for="selEspecialidad">Seleccioná la especialidad en la que deseas ser atendido</label>
                     <select class="form-control" id="selEspecialidad">
                         <option disabled="" selected="" value="">Seleccione...</option>
@@ -100,29 +105,40 @@
                     <p>Nota: Los médicos no listados no están disponibles para agendar nuevas citas</p>
                     <h5 class="card-title">Disponibilidad del Médico</h5>
                     <input type="text" class="form-control datepicker" id="fechaDisponible" placeholder="Seleccioná la fecha" autocomplete="off">
-                    <!--<button class="btn btn-primary btn-sm" id="btn-agendar">Siguiente ></button>-->                    
-                </div>
-                <!-- Column -->
-                <div class="col-md-4 col-lg-4" id="tab-pago">
-                    <div class="card card-hover">
-                        <div class="box bg-warning text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
-                            <h6 class="text-white">Realizá tu pago</h6>
-                        </div>
-                    </div>
-                </div>
-                 <!-- Column -->
-                <div class="col-md-4 col-lg-4" id="tab-ingreso">
-                    <div class="card card-hover">
-                        <div class="box bg-success text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-camera"></i></h1>
-                            <h6 class="text-white">Ingresá a la TeleConsulta!</h6>
-                        </div>
-                    </div>
-                </div>
-                
+                    <button class="btn btn-primary btn-lg m-2 btn-block" id="btn-agendar">Siguiente</button>
+                </div>                
             </div>
-            
+            <div class="row" id="tab-pago">
+                <div class="col-12 offset-md-3 col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Para ingresar a la consulta deberás hacer click en el siguiente botón para procesar tu pago:</p>
+                        </div>
+                    </div>                    
+                    <button class="btn btn-warning btn-lg m-2 btn-block" id="btn-pago">Siguiente</button>
+                </div>   
+            </div>
+            <div class="row" id="tab-ingreso">
+                <div class="col-12 offset-md-3 col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Usted está en cola para TeleConsulta</p>
+                            <p>Su turno es el #</p>
+                            <p>Cuando el médico esté disponible para tomar su consulta se habilitará un botón que le permitirá ingresar en la sala. Por favor, espere...</p>
+                            <p>Tiempo estimado de espera: **:**</p>
+                            <!--melina, mouse-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <button class="btn btn-primary m-2 btn-block" id="btn-back-agendar">Escoger otra fecha para la consulta</button>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <button class="btn btn-success m-2 btn-block" id="btn-ingreso" data-toggle="tooltip" data-placement="top" title="Este botón se habilitará para su ingreso en la sala de TeleConsultas cuando el médico esté listo para recibirlo">Ir a la TeleConsulta</button>
+                        </div>                       
+                    </div>                    
+                </div> 
+            </div>
         </div>
     
     </div>
@@ -148,7 +164,7 @@
     <script src="../assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="../dist/js/pages/calendar/cal-init.js"></script>
     <!-- PERSONALIZADO -->
-    <script src="../dist/js/reservar_consulta.js"></script>
+    <script src="../dist/js/pages/reserva/reservar_consulta.js"></script>
 
     <script src="../assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="../dist/js/pages/mask/mask.init.js"></script>
