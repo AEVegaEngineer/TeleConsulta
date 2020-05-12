@@ -11,7 +11,7 @@
 	{
 		$username = strip_tags($_POST["username"]);
 		$password = strip_tags($_POST["password"]);
-		$password = password_verify($password, PASSWORD_DEFAULT);
+		
 		if(empty($username))
 		{
 			$errorMsg[] = "Por favor, ingrese un usuario o correo";
@@ -24,12 +24,13 @@
 		{
 			try 
 			{
-				$select_stmt = $db->prepare("SELECT * FROM usuarios WHERE username = '".$username."' OR email = '".$username."' and password = '".$password."'");
+				$select_stmt = $db->prepare("SELECT * FROM usuarios WHERE username = '".$username."' OR email = '".$username."'");
 				$select_stmt->execute();
 				$row =  $select_stmt->fetch(PDO::FETCH_ASSOC);
-				print_r($row);
-				if($select_stmt->rowCount() > 0 && !empty($select_stmt))
+				echo $row["password"];
+				if(password_verify($password, $row["password"]))
 				{
+					$_SESSION["successMsg"] = "Ha iniciado sesión exitosamente!";
 					echo "Login OK";
 				}
 				else

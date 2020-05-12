@@ -60,7 +60,8 @@ if(isset($_POST['btn-registro']))
 
 			if($insert_stmt->execute(array(':uname'=>$username, ':uemail'=>$email, ':upass'=>$newpassword, ':udni'=>$dni, ':uobrasocial'=>$obrasocial )))
 			{
-				$registerMsg = "Registro completado exitosamente. Por favor, inicie sesión con sus datos.";
+				$_SESSION["successMsg"] = "Registro completado exitosamente. Por favor, inicie sesión con sus datos.";
+				header("location: ".$url."views/usuario/index.php");
 			}
 		}
 		catch(PDOException $e)
@@ -71,7 +72,7 @@ if(isset($_POST['btn-registro']))
 	else
 	{		
 		//redireccionar el error
-		$_SESSION[""];
+		$_SESSION["errorMsg"] = $errorMsg;
 		header("location: ".$url."views/usuario/index.php");
 	}
 }

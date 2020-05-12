@@ -17,7 +17,6 @@ $item->quantity = 1;
 $item->currency_id = "ARS";
 $item->unit_price = 75.56;
 $preference->items = array($item);
-var_dump($preference);
 $preference->save();
 
 

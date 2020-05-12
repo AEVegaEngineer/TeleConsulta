@@ -135,7 +135,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Correo Electrónico" aria-label="Email" aria-describedby="basic-addon1" required id="email" name="email">
+                                    <input type="text" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Debe ser Correo Electrónico"  class="form-control form-control-lg" placeholder="Correo Electrónico" aria-label="Email" aria-describedby="basic-addon1" required id="email" name="email">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -154,7 +154,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-secondary text-white" id="basic-addon1"><i class="ti-id-badge"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="DNI o CI" aria-label="DNI" aria-describedby="basic-addon1" required id="dni" name="dni">
+                                    <input type="number" pattern="([0-9]{4-8})" title="Debe tener como máximo 8 cifras" class="form-control form-control-lg" placeholder="DNI o CI" aria-label="DNI" aria-describedby="basic-addon1" required id="dni" name="dni">
                                 </div>
                                 <!-- Obra Social -->
                                 <div class="input-group mb-3">
