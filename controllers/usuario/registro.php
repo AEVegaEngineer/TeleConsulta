@@ -35,22 +35,29 @@ if(isset($_POST['btn-registro']))
 	try
 	{
 		// revisar si usuario ya ha sido registrado
-		$select_stmt = $db->prepare("SELECT * FROM usuarios WHERE username = :uname OR email = :uemail");
-		$select_stmt->execute(array(':uname'=>$username, ':uemail'=>$email));
+		$select_stmt = $db->prepare("SELECT * FROM personas WHERE perUsuario = :uname OR perEmail = :uemail OR perDNI = :udni");
+		$select_stmt->execute(array(':uname'=>$username, ':uemail'=>$email, ':udni'=>$dni));
 		$row =  $select_stmt->fetch(PDO::FETCH_ASSOC);
-		if($row["username"] == $username)
+		if(isset($row["perUsuario"]))
 		{
-			array_push($errorMsg,"Error, usuario ya existe.");
-		}
-		if($row["email"] == $email)
-		{
-			array_push($errorMsg,"Error, correo electrónico ya existe.");
-		}
+			if($row["perUsuario"] == $username)
+			{
+				array_push($errorMsg,"Error, usuario ya existe.");
+			}
+			if($row["perEmail"] == $email)
+			{
+				array_push($errorMsg,"Error, correo electrónico ya existe.");
+			}
+			if($row["perDNI"] == $dni)
+			{
+				array_push($errorMsg,"Error, DNI ya existe.");
+			}	
+		}		
 		if(empty($errorMsg))
 		{
 			//registrar
 			$newpassword = password_hash($password, PASSWORD_DEFAULT);
-			$insert_stmt = $db->prepare("INSERT INTO usuarios (username, email, password, dni, obrasocial) VALUES (:uname,:uemail,:upass,:udni,:uobrasocial)");
+			$insert_stmt = $db->prepare("INSERT INTO personas (perUsuario, perEmail, perContrasena, perDNI, perObraSocial) VALUES (:uname,:uemail,:upass,:udni,:uobrasocial)");
 
 			if($insert_stmt->execute(array(':uname'=>$username, ':uemail'=>$email, ':upass'=>$newpassword, ':udni'=>$dni, ':uobrasocial'=>$obrasocial )))
 			{

@@ -94,11 +94,12 @@
                 /* If we want to split day time each 15minutes */
                 minTime: '08:00:00',
                 maxTime: '19:00:00',
-                defaultView: 'month',
+                defaultView: 'agendaWeek',
                 handleWindowResize: true,
 
                 header: {
-                    left: 'prev,next today',
+                    //left: 'prev,next today',
+                    left: 'prev,next',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },

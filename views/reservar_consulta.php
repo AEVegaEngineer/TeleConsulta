@@ -54,7 +54,6 @@ include_once "../controllers/config/mercadoPagoPay.php";
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
                     <h4 class="page-title">Sistema de Teleconsultas</h4>  
-                    <h4 class="float-right">TEST</h4>                  
                 </div>
             </div>
         </div>

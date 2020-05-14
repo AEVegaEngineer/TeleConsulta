@@ -58,7 +58,7 @@ $(document).ready(function(){
 
 	// Inicializa los tooltips
 	$(function () {
-	  	$('[data-toggle="tooltip"]').tooltip()
+	  	$('[data-toggle="tooltip"]').tooltip();
 	});
 
 
@@ -70,10 +70,10 @@ $(document).ready(function(){
 	// datepicker setup
 	$('.datepicker').datepicker({
 		language: 'es-ES',
-    format: 'dd/mm/yyyy',
-    todayHighlight:'TRUE',
-    autoclose: true,
-    startDate: '-0d'
+	    format: 'dd/mm/yyyy',
+	    todayHighlight:'TRUE',
+	    autoclose: true,
+	    startDate: '-0d'
 	});
 	$('#calendar > div.fc-view-container > div > table > tbody > tr > td > div > div > div:nth-child(2) > div.fc-highlight-skeleton > table > tbody > tr > td.fc-highlight').click(function(){
 		alert("se ha seleccionado un dia");
