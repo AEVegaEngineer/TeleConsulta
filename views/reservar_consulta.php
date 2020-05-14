@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "../controllers/config/checkAuth.php";
-//include_once "../controllers/config/mercadoPagoPay.php";
+include_once "../controllers/config/mercadoPagoPay.php";
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -53,7 +53,8 @@ include_once "../controllers/config/checkAuth.php";
         <div class="page-breadcrumb m-2">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Sistema de Teleconsultas</h4>                    
+                    <h4 class="page-title">Sistema de Teleconsultas</h4>  
+                    <h4 class="float-right">TEST</h4>                  
                 </div>
             </div>
         </div>
@@ -89,7 +90,7 @@ include_once "../controllers/config/checkAuth.php";
                 
             </div>
             <div class="row" id="tab-agendar">
-                <div class="col-12 offset-md-3 col-md-6">
+                <div class="col-12 offset-md-4 col-md-4">
                     <label for="selEspecialidad">Seleccioná la especialidad en la que deseas ser atendido</label>
                     <select class="form-control" id="selEspecialidad">
                         <option disabled="" selected="" value="">Seleccione...</option>
@@ -109,13 +110,32 @@ include_once "../controllers/config/checkAuth.php";
                 </div>                
             </div>
             <div class="row" id="tab-pago">
-                <div class="col-12 offset-md-3 col-md-6">
+                <div class="col-12 offset-md-4 col-md-4">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <p>Para ingresar a la consulta deberás hacer click en el siguiente botón para procesar tu pago:</p>
                         </div>
                     </div>                    
-                    <button class="btn btn-warning btn-lg m-2 btn-block" id="btn-pago">Siguiente</button>
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="/procesar-pago" method="POST">                               
+                                <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+                               data-preference-id="<?php echo $preference->id; ?>">
+                                </script>
+                            </form>                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="../assets/images/mercadopago.png" class="col-12">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-warning btn-lg btn-block" id="btn-pago">Siguiente</button>
+                        </div>
+                    </div>
+                    
                 </div>   
             </div>
             <div class="row" id="tab-ingreso">
@@ -171,6 +191,9 @@ include_once "../controllers/config/checkAuth.php";
     <script src="../assets/libs/select2/dist/js/select2.full.min.js"></script>
     <script src="../assets/libs/select2/dist/js/select2.min.js"></script>
     <script src="../assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- MERCADO PAGO -->
+    <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script> 
 
 </body>
 

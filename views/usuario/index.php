@@ -39,9 +39,6 @@ session_start();
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-light margin-login">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
@@ -224,6 +221,13 @@ session_start();
     <!-- Custom -->
     <script src="../../dist/js/pages/usuario/login_registro.js"></script>
     <!-- ============================================================== -->
+    <?php 
+    if(isset($_GET["error_registro"]))
+    {
+        echo $_GET["error_registro"];
+        //echo '<script type="text/javascript">$("#loginform").hide();$("#registerform").show();</script>';
+    }
+    ?>
     
 
 </body>

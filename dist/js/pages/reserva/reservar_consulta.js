@@ -24,10 +24,44 @@ jQuery(function($){
 //$.datepicker.setDefaults({ changeMonth: true, changeYear: true, dateFormat: 'dd/mm/yy'});
 
 $(document).ready(function(){
+	// si se han modificado los selects de reserva, se habilita el botón de siguiente
+	$('#btn-agendar').attr('disabled',true);
+	var especialidadSelected = 0, especialistaSelected = 0, fechaSelected = 0;
+	$('#selEspecialidad').change(function(){
+		checkSelected();
+	});
+	$('#selEspecialista').change(function(){
+		checkSelected();
+	});
+	$('#selEspecialista').change(function(){
+		checkSelected();
+	});
+	$('#fechaDisponible').change(function(){
+		checkSelected();
+	});
+	function checkSelected(){
+		if ($('#selEspecialidad').val() != null && $('#selEspecialista').val() != null && $('#fechaDisponible').val() != "")
+		{
+			$('#btn-agendar').attr('disabled',false);
+		}
+	}
+
+	// modifica el botón de pago
+	$('.mercadopago-button').addClass('btn').addClass('btn-block');
+	// si se hace clic en el botón de mercadopago se asume que se ha pagado
+	var clickEnPago = 0;
+	$('#btn-pago').attr('disabled',true);
+	$('.mercadopago-button').click(function(){
+		$('#btn-pago').attr('disabled',false);
+	});
+
+
 	// Inicializa los tooltips
 	$(function () {
 	  	$('[data-toggle="tooltip"]').tooltip()
 	});
+
+
 	/*
 	$( function() {
 	    $( "#tabs" ).tabs();

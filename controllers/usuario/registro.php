@@ -57,6 +57,7 @@ if(isset($_POST['btn-registro']))
 				array_push($successMsg,"Registro completado exitosamente. Por favor, inicie sesión con sus datos.");
 				
 				$_SESSION["successMsg"] = $successMsg;
+				$_SESSION["errorMsg"] = array();
 				//print_r($_SESSION["successMsg"]);
 				header("location: ".$url."views/usuario/index.php");
 			}
@@ -66,7 +67,7 @@ if(isset($_POST['btn-registro']))
 			//redireccionar el error
 			$_SESSION["errorMsg"] = $errorMsg;
 			//print_r($_SESSION["errorMsg"]);
-			header("location: ".$url."views/usuario/index.php");
+			header("location: ".$url."views/usuario/index.php?error_registro=1");
 		}
 	}
 	catch (PDOException $e)
