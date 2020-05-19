@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "../controllers/config/checkAuth.php";
-include_once "../controllers/config/mercadoPagoPay.php";
+//include_once "../controllers/config/mercadoPagoPay.php";
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -47,14 +47,36 @@ include_once "../controllers/config/mercadoPagoPay.php";
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">
+        
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-left mr-auto ml-5">
+                        <li class="nav-item"><h4 style="color:#FFF;">Sistema de Teleconsultas</h4></li>
+                    </ul>
+               
+                    <ul class="navbar-nav float-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-user m-r-5 m-l-5"></i> Menú Usuario</a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-book m-r-5 m-l-5"></i> Mi Historia Clínica</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Notificaciones</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="../controllers/usuario/logout.php"><i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesión</a>
+                                <div class="dropdown-divider"></div>
+                                <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">Ver mi perfil</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
         <div class="page-breadcrumb m-2">
             <div class="row">
-                <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Sistema de Teleconsultas</h4>  
-                </div>
+                
             </div>
         </div>
         <div class="container-fluid">
@@ -117,11 +139,13 @@ include_once "../controllers/config/mercadoPagoPay.php";
                     </div>                    
                     <div class="row">
                         <div class="col-12">
+                            <!--
                             <form action="/procesar-pago" method="POST">                               
                                 <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-                               data-preference-id="<?php echo $preference->id; ?>">
+                               data-preference-id="<?php //echo $preference->id; ?>">
                                 </script>
-                            </form>                            
+                            </form>      
+                            -->                      
                         </div>
                     </div>
                     <div class="row">

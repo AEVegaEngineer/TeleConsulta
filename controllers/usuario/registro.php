@@ -1,7 +1,10 @@
 <?php
+/*
 require_once "../config/connection.php";
 require_once "../config/config.php";
 $db = conectar("teleconsulta");
+*/
+require_once "../../models/usuario.php";
 session_start();
 if(isset($_POST['btn-registro']))
 {
@@ -32,56 +35,19 @@ if(isset($_POST['btn-registro']))
 	{
 		array_push($errorMsg,"Por favor, ingrese una obra social");
 	}
-	try
+	$user = new usuario($username, $email, $password, $dni, $obrasocial);
+	$registro = $user->registrar();
+	if($registro["resultado"] == "OK")
 	{
-		// revisar si usuario ya ha sido registrado
-		$select_stmt = $db->prepare("SELECT * FROM personas WHERE perUsuario = :uname OR perEmail = :uemail OR perDNI = :udni");
-		$select_stmt->execute(array(':uname'=>$username, ':uemail'=>$email, ':udni'=>$dni));
-		$row =  $select_stmt->fetch(PDO::FETCH_ASSOC);
-		if(isset($row["perUsuario"]))
-		{
-			if($row["perUsuario"] == $username)
-			{
-				array_push($errorMsg,"Error, usuario ya existe.");
-			}
-			if($row["perEmail"] == $email)
-			{
-				array_push($errorMsg,"Error, correo electrónico ya existe.");
-			}
-			if($row["perDNI"] == $dni)
-			{
-				array_push($errorMsg,"Error, DNI ya existe.");
-			}	
-		}		
-		if(empty($errorMsg))
-		{
-			//registrar
-			$newpassword = password_hash($password, PASSWORD_DEFAULT);
-			$insert_stmt = $db->prepare("INSERT INTO personas (perUsuario, perEmail, perContrasena, perDNI, perObraSocial) VALUES (:uname,:uemail,:upass,:udni,:uobrasocial)");
-
-			if($insert_stmt->execute(array(':uname'=>$username, ':uemail'=>$email, ':upass'=>$newpassword, ':udni'=>$dni, ':uobrasocial'=>$obrasocial )))
-			{
-				array_push($successMsg,"Registro completado exitosamente. Por favor, inicie sesión con sus datos.");
-				
-				$_SESSION["successMsg"] = $successMsg;
-				$_SESSION["errorMsg"] = array();
-				//print_r($_SESSION["successMsg"]);
-				header("location: ".$url."views/usuario/index.php");
-			}
-		}
-		else
-		{		
-			//redireccionar el error
-			$_SESSION["errorMsg"] = $errorMsg;
-			//print_r($_SESSION["errorMsg"]);
-			header("location: ".$url."views/usuario/index.php?error_registro=1");
-		}
+		$_SESSION["successMsg"] = $registro["mensaje"]["resultado"];
+		$_SESSION["errorMsg"] = array();
 	}
-	catch (PDOException $e)
+	else
 	{
-		echo $e->getMessage();
+		$_SESSION["successMsg"] = array();
+		$_SESSION["errorMsg"] = $registro["mensaje"]["resultado"];
 	}
-	
+	header("location: ".$url."views/usuario/index.php");
 }
 function pass_verificada($password, $errorMsg)
 {

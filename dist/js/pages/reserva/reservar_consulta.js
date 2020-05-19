@@ -122,8 +122,24 @@ $(document).ready(function(){
 	});
 	if(window.matchMedia("(max-width: 767px)").matches){
 		// EL viewport es menor de 768 pixeles de ancho. Esto es un dispositivo móvil.
-
-
+		$("#tab-pago").hide();
+		$("#tab-ingreso").hide();
+		$('#lbl-pago').hide();
+		$('#lbl-ingreso').hide();
+		$('#btn-agendar').click(function(){
+			$( "#lbl-agendar" ).fadeOut( "slow", function() {
+			    $('#lbl-pago').fadeIn("slow");
+			});
+			$("#tab-agendar").slideToggle();
+	        $("#tab-pago").slideToggle();
+		});
+		$('#btn-pago').click(function(){
+			$( "#lbl-pago" ).fadeOut( "slow", function() {
+			    $('#lbl-ingreso').fadeIn("slow");
+			});
+			$("#tab-pago").slideToggle();
+	        $("#tab-ingreso").slideToggle();
+		});
     } else{
     	// EL viewport es mayor o igual a 768 pixeles de ancho. Esto es una tablet o pc.
     	/***************************ANIMACIONES DE VENTANA****************************/
@@ -182,6 +198,8 @@ function calcularWidth(colwidth)
 	return width;
 }
 
-
+function logout(){
+	
+}
 
 		

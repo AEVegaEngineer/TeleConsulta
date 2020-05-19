@@ -10,9 +10,12 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <title>Panel de Control - Médico</title>
     <!-- Custom CSS -->
+    <!-- old lib 
     <link href="../../assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    -->
+
     <link href="../../assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
     <link href="../../dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -317,6 +320,8 @@
                         <div class="card">
                             <div class="">
                                 <div class="row">
+                                    <?php include_once "../../htmltemplates/calendario.php"; ?>
+                                    <!--
                                     <div class="col-lg-3 border-right p-r-0">
                                         <div class="card-body border-bottom">
                                             <h4 class="card-title m-t-10">Drag & Drop Event</h4>
@@ -330,7 +335,6 @@
                                                         <div class="calendar-events m-b-20" data-class="bg-danger"><i class="fa fa-circle text-danger m-r-10"></i>Event Three</div>
                                                         <div class="calendar-events m-b-20" data-class="bg-warning"><i class="fa fa-circle text-warning m-r-10"></i>Event Four</div>
                                                     </div>
-                                                    <!-- checkbox -->
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="drop-remove">
                                                         <label class="custom-control-label" for="drop-remove">Remove after drop</label>
@@ -347,6 +351,7 @@
                                             <div id="calendar"></div>
                                         </div>
                                     </div>
+                                    -->
                                 </div>
                             </div>
                         </div>
