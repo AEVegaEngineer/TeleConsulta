@@ -37,7 +37,7 @@ class Auth
 			$fail = 0;
 			if (isset($row["usuContrasena"]))
 			{
-				//echo $this->usuContrasena. " != " . $row["usuContrasena"];
+				echo $this->usuContrasena. " != " . $row["usuContrasena"];
 				if(password_verify($this->usuContrasena, $row["usuContrasena"]))
 				{
 					//LOGIN EXITOSO
@@ -50,10 +50,10 @@ class Auth
 					{
 						header("location: /teleconsulta/views/medico/panel_de_control.php");
 					}
-					elseif ($row["usuTipoUsuario"] == "administrador") {
+					else if ($row["usuTipoUsuario"] == "administrador") {
 						header("location: /teleconsulta/views/admin/panel_de_control.php");
 					}
-					elseif ($row["usuTipoUsuario"] == "superusuario") {
+					else if ($row["usuTipoUsuario"] == "superusuario") {
 						header("location: /teleconsulta/views/sudo/panel_de_control.php");
 					}
 					else
@@ -61,22 +61,24 @@ class Auth
 						header("location: /teleconsulta/views/reservar_consulta.php");
 					}
 					
-					
 				}
 				else
 				{
 					// MAL PASS
-					array_push($errorMsg, "Error: Contraseña no coincide!");						
+					array_push($errorMsg, "Error: Contraseña no coincide!");		
+					$_SESSION["errorMsg"] = $errorMsg;
+					$_SESSION["successMsg"] = array();
+					header("location: /teleconsulta/views/usuario/index.php");			
 				}
 			} else {
 				// MAL USUARIO
-				array_push($errorMsg, "Error: Usuario o email no coincide!");				
+				array_push($errorMsg, "Error: Usuario o email no coincide!");	
+				$_SESSION["errorMsg"] = $errorMsg;
+				$_SESSION["successMsg"] = array();
+				header("location: /teleconsulta/views/usuario/index.php");		
 			}	
 			
-			$_SESSION["errorMsg"] = $errorMsg;
-			$_SESSION["successMsg"] = array();
-			//var_dump($errorMsg);
-			//header("location: /teleconsulta/views/usuario/index.php");
+			//
 			
 			
 		} catch (PDOException $e) {

@@ -2,7 +2,7 @@
 /* DATABASE CONFIGURATION */
 function conectar($target)
 {
-	$db_host = 'localhost';
+	$db_host = 'localhost:3307';
 	$db_user = 'root';
 	$db_password = '';
 	if($target == 'teleconsulta')

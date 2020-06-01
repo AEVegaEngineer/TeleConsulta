@@ -165,11 +165,9 @@ include_once "../controllers/config/checkAuth.php";
                 <div class="col-12 offset-md-3 col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <p>Usted está en cola para TeleConsulta</p>
-                            <p>Su turno es el #</p>
+                            <p>Usted está en cola para TeleConsulta</p>                            
                             <p>Cuando el médico esté disponible para tomar su consulta se habilitará un botón que le permitirá ingresar en la sala. Por favor, espere...</p>
-                            <p>Tiempo estimado de espera: **:**</p>
-                            <!--melina, mouse-->
+                            <p>Su turno fue pautado para: **:**</p>                            
                         </div>
                     </div>
                     <div class="row">

@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Primera Cita",
+    "start": "2020-05-28T07:00:00",
+    "end": "2020-05-28T08:00:00",
+    "url": "http://google.com/"
+  },
+  {
+    "title": "Segunda Cita",
+    "start": "2020-05-27T08:00:00",
+    "end": "2020-05-27T09:00:00",
+    "url": "http://google.com/"
+  }
+]

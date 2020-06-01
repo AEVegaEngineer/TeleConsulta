@@ -1,12 +1,16 @@
-<link href='../packages/core/main.css' rel='stylesheet' />
-<link href='../packages/daygrid/main.css' rel='stylesheet' />
-<link href='../packages/timegrid/main.css' rel='stylesheet' />
-<link href='../packages/list/main.css' rel='stylesheet' />
-<script src='../packages/core/main.js'></script>
-<script src='../packages/interaction/main.js'></script>
-<script src='../packages/daygrid/main.js'></script>
-<script src='../packages/timegrid/main.js'></script>
-<script src='../packages/list/main.js'></script>
+<!-- calendario -->
+<link href="../../dist/calendario/core/main.css" rel="stylesheet">
+<link href="../../dist/calendario/daygrid/main.css" rel="stylesheet">
+<link href="../../dist/calendario/list/main.css" rel="stylesheet">
+<link href="../../dist/calendario/timegrid/main.css" rel="stylesheet">
+
+
+<script src="../../dist/calendario/core/main.js"></script>
+<script src="../../dist/calendario/daygrid/main.js"></script>
+<script src="../../dist/calendario/interaction/main.js"></script>
+<script src="../../dist/calendario/list/main.js"></script>
+<script src="../../dist/calendario/timegrid/main.js"></script>
+
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -41,31 +45,66 @@
 
     /* initialize the calendar
     -----------------------------------------------------------------*/
-
+    var calHeight = 420;
     var calendarEl = document.getElementById('calendar');
     var calendar = new Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+      
+      slotLabelFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        omitZeroMinute: true,
+        meridiem: 'short'
+      },
+      
+      allDaySlot: false,
+      height:calHeight,
+      contentHeight:calHeight,
       defaultView: 'timeGridWeek',
       header: {
-        left: 'prev,next today',
+        left: 'prev,next',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        right: 'timeGridWeek,listWeek'
       },
+      timeFormat: 'H(:mm)',
       locale: 'es',
       editable: true,
       droppable: true, // this allows things to be dropped onto the calendar
       drop: function(arg) {
         // is the "remove after drop" checkbox checked?
-        if (document.getElementById('drop-remove').checked) {
+        //if (document.getElementById('drop-remove').checked) {
           // if so, remove the element from the "Draggable Events" list
           arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+        //}
+      },
+      events: {
+        url: '/teleconsulta/controllers/consulta/getConsultas.php',
+        failure: function() {
+          console.log("Error obteniendo consultas via AJAX");
+          //document.getElementById('script-warning').style.display = 'block'
         }
+      },
+      loading: function(bool) {
+        /*
+        document.getElementById('loading').style.display =
+          bool ? 'block' : 'none';
+          */
       }
+
     });
     calendar.render();
 
   });
-
+function guardarConsulta(consulta) {
+  jQuery.post(
+    '/teleconsulta/controllers/consulta/createConsulta', 
+    {
+      title: consulta.title,
+      start: consulta.start,
+      end:   consulta.end
+    }
+  );
+}
 </script>
 <style>
 
@@ -76,7 +115,7 @@
   }
 
   #wrap {
-    width: 1100px;
+    width: 1000px;
     margin: 0 auto;
   }
 
@@ -112,8 +151,8 @@
   }
 
   #calendar {
-    float: right;
-    width: 900px;
+    float: left;
+    width: 850px;
   }
 
 </style>
@@ -121,20 +160,23 @@
 <div id='wrap'>
 
   <div id='external-events'>
-    <h4>Draggable Events</h4>
+    <h4>Citas arrastrables al calendario</h4>
 
     <div id='external-events-list'>
-      <div class='fc-event'>My Event 1</div>
-      <div class='fc-event'>My Event 2</div>
-      <div class='fc-event'>My Event 3</div>
-      <div class='fc-event'>My Event 4</div>
-      <div class='fc-event'>My Event 5</div>
+      <div class='fc-event'>Cita 29/05/2020<br>Ariana Volcanes</div>
+      <div class='fc-event'>Cita 29/05/2020<br>Andrés Vega</div>
+      <div class='fc-event'>Cita 28/05/2020<br>Luis Rivas</div>
+      <div class='fc-event'>Cita 28/05/2020<br>Sergio Pérez</div>
+      <div class='fc-event'>Cita 27/05/2020<br>Ricardo Rondón</div>
     </div>
-
+    <!--
     <p>
       <input type='checkbox' id='drop-remove' />
-      <label for='drop-remove'>remove after drop</label>
+      <label for='drop-remove'>Quitar al soltar</label>
     </p>
+    -->
+    <button class="fc-event btn-info" id="">Agregar Nuevo Evento</button>
+    
   </div>
 
   <div id='calendar'></div>
@@ -142,3 +184,4 @@
   <div style='clear:both'></div>
 
 </div>
+<!-- calendario -->
